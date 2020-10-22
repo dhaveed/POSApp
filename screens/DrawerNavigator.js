@@ -4,6 +4,7 @@ import {View, Text} from 'react-native';
 import SideBar from '../components/SideBar';
 import {useNavigation} from '@react-navigation/native';
 import Main from './Main';
+import SalesReceipt from './SalesReceipt';
 
 export default function DrawerNavigator() {
   // const navigator = useNavigation();
@@ -25,7 +26,8 @@ export default function DrawerNavigator() {
       openDrawerOffset={0.55}
       panCloseMask={0}
       onClose={() => closeDrawer()}>
-      <Main closeDrawer={closeDrawer} openDrawer={openDrawer} />
+      {/* <Main closeDrawer={closeDrawer} openDrawer={openDrawer} /> */}
+      <SalesReceipt closeDrawer={closeDrawer} openDrawer={openDrawer} />
     </Drawer>
   );
 }

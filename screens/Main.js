@@ -10,6 +10,7 @@ import {
   Platform,
   StatusBar,
   Modal,
+  ScrollView
 } from 'react-native';
 import {Row, Col} from 'react-native-responsive-grid-system';
 import VirtualKeyboard from 'react-native-virtual-keyboard';
@@ -236,7 +237,7 @@ export default function Main({openDrawer, closeDrawer}) {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.productGridWrap}>
+            <ScrollView style={styles.productGridWrap}>
               <Row>
                 {/* <FlatList
                   data={ALL_PRODUCTS}
@@ -260,7 +261,7 @@ export default function Main({openDrawer, closeDrawer}) {
                   );
                 })}
               </Row>
-            </View>
+            </ScrollView>
           </View>
         </Col>
 
