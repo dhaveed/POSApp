@@ -1,6 +1,11 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Picker } from "@react-native-community/picker";
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import {Picker} from '@react-native-community/picker';
 import {
   Body,
   Button,
@@ -16,6 +21,7 @@ import {
 } from 'native-base';
 
 import Colors from '../constants/Colors';
+import Layout from '../constants/Layout';
 
 const INVENTORY = [
   {
@@ -97,6 +103,8 @@ const DISCOUNTS = [
 ];
 
 export default function Inventory({openDrawer}) {
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   const ListItem = ({item}) => {
     return (
       <View style={styles.listItemWrap}>
@@ -125,13 +133,23 @@ export default function Inventory({openDrawer}) {
 
   const ItemsTab = () => {
     return (
-      <View style={{flex: 1}}>
-      <View>
-        {/* <Picker /> */}
-      </View>
-        <ScrollView
-          style={styles.content}
-          contentContainerStyle={styles.pb30}>
+      <View style={{flex: 1, backgroundColor: '#F7F9FB'}}>
+        <View style={styles.pickerContainer}>
+          <View style={styles.pickerWrap}>
+            <Picker
+              selectedValue={selectedCategory}
+              style={styles.pickerStyles}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedCategory(itemValue)
+              }>
+              <Picker.Item label="All Categories" value="" />
+              <Picker.Item label="Beverage" value="beverage" />
+              <Picker.Item label="Vegetables" value="vegetables" />
+              <Picker.Item label="Drugs" value="drugs" />
+            </Picker>
+          </View>
+        </View>
+        <ScrollView style={styles.content} contentContainerStyle={styles.pb30}>
           <View>
             {INVENTORY.map((item) => {
               return <ListItem key={item.id} item={item} />;
@@ -160,14 +178,14 @@ export default function Inventory({openDrawer}) {
             })}
           </View>
         </ScrollView>
-          <Fab
-            direction="up"
-            containerStyle={{}}
-            style={{backgroundColor: Colors.primary}}
-            position="bottomRight"
-            onPress={() => console.log('Create new inventory item')}>
-            <Icon name="add" />
-          </Fab>
+        <Fab
+          direction="up"
+          containerStyle={{}}
+          style={{backgroundColor: Colors.primary}}
+          position="bottomRight"
+          onPress={() => console.log('Create new inventory item')}>
+          <Icon name="add" />
+        </Fab>
       </View>
     );
   };
@@ -182,14 +200,14 @@ export default function Inventory({openDrawer}) {
             })}
           </View>
         </ScrollView>
-          <Fab
-            direction="up"
-            containerStyle={{}}
-            style={{backgroundColor: Colors.primary}}
-            position="bottomRight"
-            onPress={() => console.log('Create new inventory item')}>
-            <Icon name="add" />
-          </Fab>
+        <Fab
+          direction="up"
+          containerStyle={{}}
+          style={{backgroundColor: Colors.primary}}
+          position="bottomRight"
+          onPress={() => console.log('Create new inventory item')}>
+          <Icon name="add" />
+        </Fab>
       </View>
     );
   };
@@ -298,5 +316,24 @@ const styles = StyleSheet.create({
   },
   pb30: {
     paddingBottom: 30,
-  }
+  },
+  pickerContainer: {
+    paddingTop: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 30,
+    alignItems: 'flex-end',
+  },
+  pickerWrap: {
+    borderWidth: 1,
+    borderRadius: 3,
+    borderColor: Colors.primary,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  pickerStyles: {
+    width: Layout.window.width * 0.25,
+    height: 30,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+  },
 });
