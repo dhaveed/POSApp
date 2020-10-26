@@ -15,7 +15,7 @@ import ImagePicker from 'react-native-image-picker';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-export default function AddEdit({openDrawer}) {
+export default function AddEdit({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [unit, setUnit] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -80,8 +80,8 @@ export default function AddEdit({openDrawer}) {
     <View style={styles.container}>
       <Header style={{backgroundColor: Colors.primary}} hasTabs>
         <Left>
-          <Button transparent onPress={openDrawer}>
-            <Icon name="menu" />
+          <Button transparent onPress={() => navigation.goBack()}>
+            <Icon name="arrow-back" />
           </Button>
         </Left>
         <Body>

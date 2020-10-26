@@ -102,7 +102,7 @@ const DISCOUNTS = [
   },
 ];
 
-export default function Inventory({openDrawer}) {
+export default function Inventory({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const ListItem = ({item}) => {
@@ -161,7 +161,7 @@ export default function Inventory({openDrawer}) {
           containerStyle={{}}
           style={{backgroundColor: Colors.primary}}
           position="bottomRight"
-          onPress={() => console.log('Create new inventory item')}>
+          onPress={() => navigation.navigate("AddEdit")}>
           <Icon name="add" />
         </Fab>
       </View>
@@ -216,7 +216,7 @@ export default function Inventory({openDrawer}) {
     <View style={styles.container}>
       <Header style={{backgroundColor: Colors.primary}} hasTabs>
         <Left>
-          <Button transparent onPress={openDrawer}>
+          <Button transparent onPress={() => navigation.openDrawer()}>
             <Icon name="menu" />
           </Button>
         </Left>
@@ -229,7 +229,7 @@ export default function Inventory({openDrawer}) {
           </Button>
         </Right>
       </Header>
-      <Tabs tabContainerStyle={{backgroundColor: Colors.primary}}>
+      <Tabs tabContainerStyle={{elevation: 0, }}>
         <Tab
           heading={
             <TabHeading>
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
   pickerWrap: {
     borderWidth: 1,
-    borderRadius: 3,
+    borderRadius: 4,
     borderColor: Colors.primary,
     paddingVertical: 5,
     paddingHorizontal: 10,

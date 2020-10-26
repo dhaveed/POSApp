@@ -62,7 +62,7 @@ const SALES = [
   },
 ];
 
-export default function SalesReceipt({openDrawer}) {
+export default function SalesReceipt({ navigation }) {
   const SaleRow = ({sale, active}) => {
     return (
       <TouchableOpacity
@@ -93,7 +93,7 @@ export default function SalesReceipt({openDrawer}) {
     <View style={styles.container}>
       <Header style={{backgroundColor: Colors.primary}}>
         <Left>
-          <Button transparent onPress={openDrawer}>
+          <Button transparent onPress={() => navigation.openDrawer()}>
             <Icon name="menu" />
           </Button>
         </Left>

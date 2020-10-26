@@ -1,13 +1,12 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * POS App
  *
  * @format
  * @flow strict-local
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import {Root} from 'native-base';
+import {Root, StyleProvider} from 'native-base';
 import React from 'react';
 import {
   SafeAreaView,
@@ -19,23 +18,28 @@ import {
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Login from './screens/Login';
-import DrawerNavigator from './screens/DrawerNavigator';
+import Navigation from './screens/Navigation';
+
+import getTheme from './native-base-theme/components';
+import variables from './native-base-theme/variables/variables'
 
 const App = () => {
   return (
+    // <Root>
+    //     {/* <Login /> */}
+    //   {/* <NavigationContainer>
+    //     <DrawerNavigator />
+    //   </NavigationContainer> */}
+    //   {/* {Platform.OS == "android" && <StatusBar backgroundColor={"#308bcc"} />} */}
+    //   <Navigation />
+    // </Root>
     <Root>
-      <NavigationContainer>
-        {/* <Login /> */}
-        <DrawerNavigator />
-      </NavigationContainer>
-      {Platform.OS == "android" && <StatusBar backgroundColor={"#308bcc"} />}
+      <StyleProvider style={getTheme(variables)}>
+          <Navigation />
+      </StyleProvider>
     </Root>
   );
 };

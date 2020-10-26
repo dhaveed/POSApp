@@ -10,7 +10,7 @@ import {
   Platform,
   StatusBar,
   Modal,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import {Row, Col} from 'react-native-responsive-grid-system';
 import VirtualKeyboard from 'react-native-virtual-keyboard';
@@ -82,7 +82,7 @@ const ALL_PRODUCTS = [
   },
 ];
 
-export default function Main({openDrawer, closeDrawer}) {
+export default function Main({ navigation }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const CheckoutItem = ({item}) => {
@@ -191,7 +191,7 @@ export default function Main({openDrawer, closeDrawer}) {
     <View style={styles.container}>
       <Header style={{backgroundColor: Colors.primary}}>
         <Left>
-          <Button transparent onPress={openDrawer}>
+          <Button transparent onPress={() => navigation.openDrawer()}>
             <Icon name="menu" />
           </Button>
         </Left>
@@ -208,38 +208,39 @@ export default function Main({openDrawer, closeDrawer}) {
         </Right>
       </Header>
 
-      <Row
-        rowStyles={{
-          flex: 1,
-          maxWidth: Layout.window.width * 1,
-          margin: 0,
-          padding: 0,
-        }}>
-        <Col
-          lg={8}
-          md={12}
-          sm={12}
-          xs={12}
-          colStyles={[styles.productsCol, {paddingEnd: 30}]}>
-          <View style={styles.productsCard}>
-            <View style={styles.productSearchRow}>
-              <View style={styles.searchWrap}>
-                <TextInput
-                  placeholder="Search items here..."
-                  style={styles.searchInput}
-                />
-                <TouchableOpacity style={styles.searchButton}>
-                  <Icon
-                    name="search"
-                    type="Ionicons"
-                    style={{color: '#FFF', fontSize: 22}}
+      <ScrollView contentContainerStyle={{ backgroundColor: "#F7F9FB"}}>
+        <Row
+          rowStyles={{
+            flex: 1,
+            maxWidth: Layout.window.width * 1,
+            margin: 0,
+            padding: 0,
+          }}>
+          <Col
+            lg={8}
+            md={12}
+            sm={12}
+            xs={12}
+            colStyles={[styles.productsCol, {paddingEnd: 30}]}>
+            <View style={styles.productsCard}>
+              <View style={styles.productSearchRow}>
+                <View style={styles.searchWrap}>
+                  <TextInput
+                    placeholder="Search items here..."
+                    style={styles.searchInput}
                   />
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.searchButton}>
+                    <Icon
+                      name="search"
+                      type="Ionicons"
+                      style={{color: '#FFF', fontSize: 22}}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <ScrollView style={styles.productGridWrap}>
-              <Row>
-                {/* <FlatList
+              <ScrollView style={styles.productGridWrap}>
+                <Row>
+                  {/* <FlatList
                   data={ALL_PRODUCTS}
                   renderItem={(item) => {
                     return (
@@ -250,86 +251,87 @@ export default function Main({openDrawer, closeDrawer}) {
                   }}
                   keyExtractor={(item) => item.id.toString()}
                 /> */}
-                {/* <Product />
+                  {/* <Product />
                 </Col> */}
 
-                {ALL_PRODUCTS.map((item) => {
-                  return (
-                    <Col xs={6} sm={6} md={4} lg={3}>
-                      <Product item={item} />
-                    </Col>
-                  );
-                })}
-              </Row>
-            </ScrollView>
-          </View>
-        </Col>
+                  {ALL_PRODUCTS.map((item) => {
+                    return (
+                      <Col xs={6} sm={6} md={4} lg={3}>
+                        <Product item={item} />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </ScrollView>
+            </View>
+          </Col>
 
-        <Col lg={4} md={12} sm={12} xs={12} colStyles={styles.ticketCol}>
-          {/* Checkout Card */}
-          <View style={{flex: 1}}>
-            <View style={styles.checkoutWrap}>
-              <View style={styles.checkoutTitle}>
-                <Text style={styles.checkoutTitleText}>Checkout</Text>
-              </View>
-              {/* Checkout Items Heading */}
-              <View style={styles.checkoutTableHeading}>
-                <View style={{flex: 0.15}}></View>
-                <View style={styles.tableContent}>
-                  <Text style={styles.checkoutTableHeadingItem}>Name</Text>
-                  <Text style={styles.checkoutTableHeadingItem}>QTY</Text>
-                  <Text style={styles.checkoutTableHeadingItem}>Price</Text>
+          <Col lg={4} md={12} sm={12} xs={12} colStyles={styles.ticketCol}>
+            {/* Checkout Card */}
+            <View style={{flex: 1}}>
+              <View style={styles.checkoutWrap}>
+                <View style={styles.checkoutTitle}>
+                  <Text style={styles.checkoutTitleText}>Checkout</Text>
                 </View>
-              </View>
-
-              {/* Checkout Items List */}
-              {/* <View > */}
-              <FlatList
-                data={TICKET_ITEMS}
-                renderItem={CheckoutItem}
-                keyExtractor={(item) => item.id.toString()}
-                style={styles.checkoutItems}
-              />
-              {/* </View> */}
-
-              <View>
-                {/* Cost Section */}
-                <View style={styles.costWrap}>
-                  <View style={styles.costItem}>
-                    <Text style={styles.costItemText}>Discount (%)</Text>
-                    <Text style={styles.costItemText}>0</Text>
-                  </View>
-                  <View style={styles.costItem}>
-                    <Text style={styles.costItemText}>Sub Total</Text>
-                    <Text style={styles.costItemText}>&#8358; 2,100</Text>
-                  </View>
-                  <View style={styles.costItem}>
-                    <Text style={styles.costItemText}>Tax (1.5%)</Text>
-                    <Text style={styles.costItemText}>&#8358; 31.5</Text>
+                {/* Checkout Items Heading */}
+                <View style={styles.checkoutTableHeading}>
+                  <View style={{flex: 0.15}}></View>
+                  <View style={styles.tableContent}>
+                    <Text style={styles.checkoutTableHeadingItem}>Name</Text>
+                    <Text style={styles.checkoutTableHeadingItem}>QTY</Text>
+                    <Text style={styles.checkoutTableHeadingItem}>Price</Text>
                   </View>
                 </View>
 
-                {/* Total Section */}
-                <View style={styles.totalWrap}>
-                  <Text style={styles.totalLabel}>Total</Text>
-                  <Text style={styles.total}>&#8358; 2,131.5</Text>
-                </View>
+                {/* Checkout Items List */}
+                {/* <View > */}
+                <FlatList
+                  data={TICKET_ITEMS}
+                  renderItem={CheckoutItem}
+                  keyExtractor={(item) => item.id.toString()}
+                  style={styles.checkoutItems}
+                />
+                {/* </View> */}
 
-                <View style={styles.buttonWrap}>
-                  <TouchableOpacity
-                    style={styles.checkoutButton}
-                    activeOpacity={0.6}
-                    onPress={() => setModalOpen(true)}>
-                    <Text style={styles.checkoutButtonLabel}>
-                      Pay (&#8358; 2,131.5)
-                    </Text>
-                  </TouchableOpacity>
+                <View>
+                  {/* Cost Section */}
+                  <View style={styles.costWrap}>
+                    <View style={styles.costItem}>
+                      <Text style={styles.costItemText}>Discount (%)</Text>
+                      <Text style={styles.costItemText}>0</Text>
+                    </View>
+                    <View style={styles.costItem}>
+                      <Text style={styles.costItemText}>Sub Total</Text>
+                      <Text style={styles.costItemText}>&#8358; 2,100</Text>
+                    </View>
+                    <View style={styles.costItem}>
+                      <Text style={styles.costItemText}>Tax (1.5%)</Text>
+                      <Text style={styles.costItemText}>&#8358; 31.5</Text>
+                    </View>
+                  </View>
+
+                  {/* Total Section */}
+                  <View style={styles.totalWrap}>
+                    <Text style={styles.totalLabel}>Total</Text>
+                    <Text style={styles.total}>&#8358; 2,131.5</Text>
+                  </View>
+
+                  <View style={styles.buttonWrap}>
+                    <TouchableOpacity
+                      style={styles.checkoutButton}
+                      activeOpacity={0.6}
+                      onPress={() => setModalOpen(true)}>
+                      <Text style={styles.checkoutButtonLabel}>
+                        Pay (&#8358; 2,131.5)
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </ScrollView>
       <CheckoutModal />
     </View>
   );
@@ -394,8 +396,8 @@ const styles = StyleSheet.create({
   },
   productImage: {
     backgroundColor: '#eee',
-    height: Layout.window.height * 0.2,
-    width: Layout.window.height * 0.2,
+    height: Layout.window.width * 0.1,
+    width: Layout.window.width * 0.1,
     borderRadius: 10,
   },
   productMetaWrap: {

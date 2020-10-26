@@ -4,10 +4,12 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
-export default function SideBar() {
-  const SidebarItem = ({label, icon, last}) => {
+export default function SideBar({navigation}) {
+  const SidebarItem = ({label, icon, last, routeName}) => {
     return (
-      <TouchableOpacity style={styles.sidebarItem}>
+      <TouchableOpacity
+        style={styles.sidebarItem}
+        onPress={() => navigation.navigate(routeName)}>
         <Text style={styles.sidebarItemLabel}>{label}</Text>
         <Icon
           name={icon.name}
@@ -29,11 +31,17 @@ export default function SideBar() {
         <SidebarItem
           label="Sales"
           icon={{name: 'shopping-pos-machine', type: 'Fontisto'}}
+          routeName={'Main'}
         />
-        <SidebarItem label="Inventory" icon={{name: 'inventory'}} />
+        <SidebarItem
+          label="Inventory"
+          icon={{name: 'inventory'}}
+          routeName={'Inventory'}
+        />
         <SidebarItem
           label="View Sales & Receipts"
           icon={{name: 'receipt', type: 'FontAwesome5'}}
+          routeName={'SalesReceipt'}
         />
         <SidebarItem label="Users" icon={{name: 'groups'}} />
         <SidebarItem
