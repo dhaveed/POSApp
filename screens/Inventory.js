@@ -338,7 +338,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   pickerStyles: {
-    width: Layout.window.width * 0.25,
+    width: Layout.window.width < 500 ? Layout.window.width * 0.5 : Layout.window.width * 0.25,
     height: 30,
     borderWidth: 1,
     borderColor: Colors.primary,
