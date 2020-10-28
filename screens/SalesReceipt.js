@@ -106,7 +106,7 @@ export default function SalesReceipt({ navigation }) {
           </Button>
         </Right>
       </Header>
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Row>
           <Col
             xs={12}
@@ -179,9 +179,9 @@ export default function SalesReceipt({ navigation }) {
 
             {/* This section should be converted to its own component when integrating with actual data */}
             <ScrollView>
-              {SALES.map((item) => {
+              {SALES.map((item, index) => {
                 return (
-                  <View style={styles.salesDay} key={item.id}>
+                  <View style={styles.salesDay} key={index}>
                     <View style={styles.salesHeader}>
                       <Text style={[styles.dateText, styles.date]}>
                         Tuesday, 1 February 2020
@@ -189,7 +189,7 @@ export default function SalesReceipt({ navigation }) {
                     </View>
                     {item.sales.map((sale) => {
                       return (
-                        <SaleRow sale={sale} active={sale.id == 1 && true} />
+                        <SaleRow sale={sale} active={sale.id == 1 && true} key={sale.id} />
                       );
                     })}
                   </View>
@@ -198,7 +198,7 @@ export default function SalesReceipt({ navigation }) {
             </ScrollView>
           </Col>
         </Row>
-      </View>
+      </ScrollView>
     </View>
   );
 }

@@ -22,11 +22,11 @@ import {
 import Layout from '../constants/Layout';
 import Colors from '../constants/Colors';
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidepass, setHidePass] = useState(true);
-  const [remember, setRemember] = useState(false);
+  const [remember, setRemember] = useState(true);
 
   let _emailRef = createRef();
   let _passwordRef = createRef();
@@ -83,9 +83,14 @@ export default function Login() {
         </View>
 
         <View style={styles.buttonWrap}>
-          <Button full info>
+          {/* <Button>
             <Text style={styles.buttonLabel}>Log in</Text>
-          </Button>
+          </Button> */}
+          <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={() => navigation.navigate("Main")}>
+            <Text style={styles.buttonLabel}>
+              Login
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.forgotWrap}>
           <TouchableOpacity activeOpacity={0.6}>
@@ -97,7 +102,8 @@ export default function Login() {
           <TouchableOpacity
             style={styles.regLink}
             activeOpacity={0.6}
-            onPress={() => navigator.navigate('Register')}>
+            // onPress={() => navigator.navigate('Register')}
+            >
             <Text style={styles.regLinkLabel}>Sign up</Text>
           </TouchableOpacity>
         </View>
@@ -146,6 +152,11 @@ const styles = StyleSheet.create({
   buttonWrap: {
     width: '100%',
     marginVertical: 20,
+  },
+  button: {
+    backgroundColor: Colors.primary,
+    paddingVertical: 15,
+    alignItems: "center",
   },
   buttonLabel: {
     color: 'white',

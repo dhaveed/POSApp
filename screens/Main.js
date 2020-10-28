@@ -7,10 +7,9 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
-  Platform,
-  StatusBar,
   Modal,
   ScrollView,
+  Image,
 } from 'react-native';
 import {Row, Col} from 'react-native-responsive-grid-system';
 import VirtualKeyboard from 'react-native-virtual-keyboard';
@@ -44,41 +43,55 @@ const ALL_PRODUCTS = [
     id: 1,
     name: 'Ginger (50mg)',
     price: 2000,
+    image: require('./../assets/images/ginger.png')
   },
   {
     id: 2,
-    name: 'Potatoes (30kg)',
+    name: 'Ginger (50mg)',
     price: 2000,
+    image: require('./../assets/images/ginger.png')
   },
   {
     id: 3,
-    name: 'Chicken Casserole',
-    price: 675,
+    name: 'Ginger (50mg)',
+    price: 2000,
+    image: require('./../assets/images/ginger.png')
   },
   {
     id: 4,
-    name: 'Doughnut',
-    price: 600,
+    name: 'Onion (50mg)',
+    price: 2000,
+    image: require('./../assets/images/onions.png')
   },
   {
     id: 5,
-    name: 'Coca Cola',
-    price: 200,
+    name: 'Onion (50mg)',
+    price: 2000,
+    image: require('./../assets/images/onions.png')
   },
   {
     id: 6,
-    name: 'Aquafina Bottled Water',
-    price: 60,
+    name: 'Onion (50mg)',
+    price: 2000,
+    image: require('./../assets/images/onions.png')
   },
   {
     id: 7,
-    name: 'Sprite',
-    price: 150,
+    name: 'Garlic (50mg)',
+    price: 2000,
+    image: require('./../assets/images/garlic.png')
   },
   {
     id: 8,
-    name: 'Bonbons',
+    name: 'Garlic (50mg)',
     price: 2000,
+    image: require('./../assets/images/garlic.png')
+  },
+  {
+    id: 8,
+    name: 'Garlic (50mg)',
+    price: 2000,
+    image: require('./../assets/images/garlic.png')
   },
 ];
 
@@ -106,7 +119,9 @@ export default function Main({ navigation }) {
     return (
       <TouchableOpacity style={styles.product} activeOpacity={0.7}>
         <View style={styles.productImageWrap}>
-          <View style={styles.productImage}></View>
+          <View style={styles.productImage}>
+            <Image source={item.image} style={styles.productImage} />
+          </View>
         </View>
         <View style={styles.productMetaWrap}>
           <Text style={styles.productTitle}>{item.name}</Text>
@@ -208,20 +223,21 @@ export default function Main({ navigation }) {
         </Right>
       </Header>
 
-      <ScrollView contentContainerStyle={{ backgroundColor: "#F7F9FB"}}>
+      <ScrollView contentContainerStyle={{ backgroundColor: "#F7F9FB", paddingHorizontal: 30,}}>
         <Row
           rowStyles={{
             flex: 1,
             maxWidth: Layout.window.width * 1,
             margin: 0,
-            padding: 0,
+            paddingHorizontal: 0,
+            paddingVertical: 20,
           }}>
           <Col
             lg={8}
             md={12}
             sm={12}
             xs={12}
-            colStyles={[styles.productsCol, {paddingEnd: 30}]}>
+            colStyles={[styles.productsCol]}>
             <View style={styles.productsCard}>
               <View style={styles.productSearchRow}>
                 <View style={styles.searchWrap}>
@@ -240,20 +256,6 @@ export default function Main({ navigation }) {
               </View>
               <ScrollView style={styles.productGridWrap}>
                 <Row>
-                  {/* <FlatList
-                  data={ALL_PRODUCTS}
-                  renderItem={(item) => {
-                    return (
-                      <Col xs={6} sm={6} md={4} lg={3} colStyles={{ borderWidth: 1, }}>
-                        <Product />
-                      </Col>
-                    );
-                  }}
-                  keyExtractor={(item) => item.id.toString()}
-                /> */}
-                  {/* <Product />
-                </Col> */}
-
                   {ALL_PRODUCTS.map((item) => {
                     return (
                       <Col xs={6} sm={6} md={4} lg={3}>
@@ -343,11 +345,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1f6f9',
   },
   productsCol: {
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 30,
-    paddingEnd: 30,
+    paddingRight: Layout.window.width > 500 ? 30 : 0,
   },
   productsCard: {
     backgroundColor: '#fff',
@@ -356,6 +356,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 20,
     borderRadius: 8,
+    marginBottom: 30,
+    // elevation: 1,
   },
   productSearchRow: {
     flexDirection: 'row',
@@ -368,7 +370,7 @@ const styles = StyleSheet.create({
   searchInput: {
     backgroundColor: '#ebebeb',
     paddingHorizontal: 20,
-    width: Layout.window.width * 0.2,
+    width: Layout.window.width < 712 ? Layout.window.width * 0.4 : Layout.window.width * 0.2,
     borderRadius: 30,
   },
   searchButton: {

@@ -1,6 +1,6 @@
-import {Content, Icon, Title} from 'native-base';
+import { Icon } from 'native-base';
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
@@ -27,7 +27,7 @@ export default function SideBar({navigation}) {
         <Text style={styles.role}>Admin</Text>
         <Text style={styles.stand}>POS 1</Text>
       </View>
-      <View style={styles.sidebarItems}>
+      <ScrollView style={styles.sidebarItems}>
         <SidebarItem
           label="Sales"
           icon={{name: 'shopping-pos-machine', type: 'Fontisto'}}
@@ -49,6 +49,9 @@ export default function SideBar({navigation}) {
           icon={{name: 'linechart', type: 'AntDesign'}}
         />
         <SidebarItem label="Dashboard" icon={{name: 'dashboard'}} />
+      </ScrollView>
+      <View>
+        <SidebarItem label="Logout" icon={{name: 'logout'}} routeName="Login" />
       </View>
     </View>
   );
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   },
   sidebarItemLabel: {
     color: '#FFF',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   sidebarItemIcon: {

@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Image
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
@@ -109,7 +110,9 @@ export default function Inventory({ navigation }) {
     return (
       <View style={styles.listItemWrap}>
         {item.image !== undefined ? (
-          <View style={styles.listImageWrap}></View>
+          <View style={styles.listImageWrap}>
+            <Image source={require("../assets/images/coke.png")} style={styles.listImage}/>
+          </View>
         ) : (
           <></>
         )}
@@ -287,6 +290,10 @@ const styles = StyleSheet.create({
     width: 45,
     backgroundColor: Colors.mutedText + '70',
     borderRadius: 8,
+  },
+  listImage: {
+    height: 50,
+    width: 50,
   },
   listItemContent: {
     marginLeft: 20,
