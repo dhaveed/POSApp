@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Row, Col} from 'react-native-responsive-grid-system';
 import VirtualKeyboard from 'react-native-virtual-keyboard';
+import {Picker} from '@react-native-community/picker';
 
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
@@ -43,69 +44,88 @@ const ALL_PRODUCTS = [
     id: 1,
     name: 'Ginger (50mg)',
     price: 2000,
-    image: require('./../assets/images/ginger.png')
+    image: require('./../assets/images/ginger.png'),
   },
   {
     id: 2,
     name: 'Ginger (50mg)',
     price: 2000,
-    image: require('./../assets/images/ginger.png')
+    image: require('./../assets/images/ginger.png'),
   },
   {
     id: 3,
     name: 'Ginger (50mg)',
     price: 2000,
-    image: require('./../assets/images/ginger.png')
+    image: require('./../assets/images/ginger.png'),
   },
   {
     id: 4,
     name: 'Onion (50mg)',
     price: 2000,
-    image: require('./../assets/images/onions.png')
+    image: require('./../assets/images/onions.png'),
   },
   {
     id: 5,
     name: 'Onion (50mg)',
     price: 2000,
-    image: require('./../assets/images/onions.png')
+    image: require('./../assets/images/onions.png'),
   },
   {
     id: 6,
     name: 'Onion (50mg)',
     price: 2000,
-    image: require('./../assets/images/onions.png')
+    image: require('./../assets/images/onions.png'),
   },
   {
     id: 7,
     name: 'Garlic (50mg)',
     price: 2000,
-    image: require('./../assets/images/garlic.png')
+    image: require('./../assets/images/garlic.png'),
   },
   {
     id: 8,
     name: 'Garlic (50mg)',
     price: 2000,
-    image: require('./../assets/images/garlic.png')
+    image: require('./../assets/images/garlic.png'),
   },
   {
-    id: 8,
+    id: 9,
     name: 'Garlic (50mg)',
     price: 2000,
-    image: require('./../assets/images/garlic.png')
+    image: require('./../assets/images/garlic.png'),
+  },
+  {
+    id: 10,
+    name: 'Ginger (50mg)',
+    price: 2000,
+    image: require('./../assets/images/ginger.png'),
+  },
+  {
+    id: 11,
+    name: 'Onion (50mg)',
+    price: 2000,
+    image: require('./../assets/images/onions.png'),
+  },
+  {
+    id: 12,
+    name: 'Onion (50mg)',
+    price: 2000,
+    image: require('./../assets/images/onions.png'),
   },
 ];
 
-export default function Main({ navigation }) {
+export default function Main({navigation}) {
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
 
   const CheckoutItem = ({item}) => {
     return (
       <View style={styles.checkoutItem}>
-        <View style={{flex: 0.15}}>
+        {/* <View style={{flex: 0.15}}>
           <TouchableOpacity style={styles.removeButton}>
             <Icon name="trash" style={{color: '#ee6f57', fontSize: 18}} />
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={styles.tableContent}>
           <Text style={styles.checkoutItemTitle}>{item.name}</Text>
           <Text style={styles.checkoutItemQuantity}>{item.quantity}</Text>
@@ -223,7 +243,11 @@ export default function Main({ navigation }) {
         </Right>
       </Header>
 
-      <ScrollView contentContainerStyle={{ backgroundColor: "#F7F9FB", paddingHorizontal: 30,}}>
+      <ScrollView
+        contentContainerStyle={{
+          backgroundColor: '#F7F9FB',
+          paddingHorizontal: 30,
+        }}>
         <Row
           rowStyles={{
             flex: 1,
@@ -232,14 +256,22 @@ export default function Main({ navigation }) {
             paddingHorizontal: 0,
             paddingVertical: 20,
           }}>
-          <Col
-            lg={8}
-            md={12}
-            sm={12}
-            xs={12}
-            colStyles={[styles.productsCol]}>
+          <Col lg={8} md={12} sm={12} xs={12} colStyles={[styles.productsCol]}>
             <View style={styles.productsCard}>
               <View style={styles.productSearchRow}>
+                <View style={styles.pickerWrap}>
+                  <Picker
+                    selectedValue={selectedCategory}
+                    style={styles.pickerStyles}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedCategory(itemValue)
+                    }>
+                    <Picker.Item label="All Categories" value="" />
+                    <Picker.Item label="Beverage" value="beverage" />
+                    <Picker.Item label="Vegetables" value="vegetables" />
+                    <Picker.Item label="Drugs" value="drugs" />
+                  </Picker>
+                </View>
                 <View style={styles.searchWrap}>
                   <TextInput
                     placeholder="Search items here..."
@@ -277,7 +309,7 @@ export default function Main({ navigation }) {
                 </View>
                 {/* Checkout Items Heading */}
                 <View style={styles.checkoutTableHeading}>
-                  <View style={{flex: 0.15}}></View>
+                  {/* <View style={{flex: 0.15}}></View> */}
                   <View style={styles.tableContent}>
                     <Text style={styles.checkoutTableHeadingItem}>Name</Text>
                     <Text style={styles.checkoutTableHeadingItem}>QTY</Text>
@@ -357,11 +389,29 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderRadius: 8,
     marginBottom: 30,
+    maxHeight: '90%',
     // elevation: 1,
   },
   productSearchRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+  },
+  pickerWrap: {
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: Colors.primary,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  pickerStyles: {
+    width:
+      Layout.window.width < 712
+        ? Layout.window.width * 0.5
+        : Layout.window.width * 0.2,
+    height: 30,
+    borderWidth: 1,
+    borderColor: Colors.primary,
   },
   searchWrap: {
     flexDirection: 'row',
@@ -370,7 +420,10 @@ const styles = StyleSheet.create({
   searchInput: {
     backgroundColor: '#ebebeb',
     paddingHorizontal: 20,
-    width: Layout.window.width < 712 ? Layout.window.width * 0.4 : Layout.window.width * 0.2,
+    width:
+      Layout.window.width < 712
+        ? Layout.window.width * 0.4
+        : Layout.window.width * 0.2,
     borderRadius: 30,
   },
   searchButton: {

@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  FlatList,
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {
@@ -23,6 +24,8 @@ import {
 
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import { Col, Row } from 'react-native-responsive-grid-system';
 
 const INVENTORY = [
   {
@@ -74,6 +77,48 @@ const INVENTORY = [
     amount: 'N120',
     image: '',
   },
+  {
+    id: 8,
+    title: 'Coke (35cl)',
+    desc: '1000 in stock',
+    amount: 'N120',
+    image: '',
+  },
+  {
+    id: 9,
+    title: 'Coke (35cl)',
+    desc: '1000 in stock',
+    amount: 'N120',
+    image: '',
+  },
+  {
+    id: 10,
+    title: 'Coke (35cl)',
+    desc: '1000 in stock',
+    amount: 'N120',
+    image: '',
+  },
+  {
+    id: 11,
+    title: 'Coke (35cl)',
+    desc: '1000 in stock',
+    amount: 'N120',
+    image: '',
+  },
+  {
+    id: 12,
+    title: 'Coke (35cl)',
+    desc: '1000 in stock',
+    amount: 'N120',
+    image: '',
+  },
+  {
+    id: 13,
+    title: 'Coke (35cl)',
+    desc: '1000 in stock',
+    amount: 'N120',
+    image: '',
+  },
 ];
 
 const CATEGORIES = [
@@ -103,15 +148,19 @@ const DISCOUNTS = [
   },
 ];
 
-export default function Inventory({ navigation }) {
+export default function Inventory({navigation}) {
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [itemsLayout, setItemsLayout] = useState('list');
 
   const ListItem = ({item}) => {
     return (
-      <View style={styles.listItemWrap}>
+      <TouchableOpacity style={styles.listItemWrap} activeOpacity={0.6}>
         {item.image !== undefined ? (
           <View style={styles.listImageWrap}>
-            <Image source={require("../assets/images/coke.png")} style={styles.listImage}/>
+            <Image
+              source={require('../assets/images/coke.png')}
+              style={styles.listImage}
+            />
           </View>
         ) : (
           <></>
@@ -130,7 +179,26 @@ export default function Inventory({ navigation }) {
             <Text style={styles.listItemRightText}>{item.amount}</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const GridItem = ({item}) => {
+    return (
+      <TouchableOpacity style={styles.product} activeOpacity={0.7}>
+        <View style={styles.productImageWrap}>
+          <View style={styles.productImage}>
+            <Image
+              source={require('../assets/images/coke.png')}
+              style={styles.productImage}
+            />
+          </View>
+        </View>
+        <View style={styles.productMetaWrap}>
+          <Text style={styles.productTitle}>{item.title}</Text>
+          <Text style={styles.productPrice}>{item.amount}.00</Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -138,6 +206,28 @@ export default function Inventory({ navigation }) {
     return (
       <View style={{flex: 1, backgroundColor: '#F7F9FB'}}>
         <View style={styles.pickerContainer}>
+          <View style={styles.viewSwitcherWrap}>
+            <TouchableOpacity
+              style={styles.viewSwitcherButton}
+              onPress={() => setItemsLayout('list')}
+              activeOpacity={0.6}>
+              <Icon
+                name="list"
+                type="Entypo"
+                style={{color: itemsLayout == 'list' ? Colors.primary : '#aaa'}}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.viewSwitcherButton}
+              onPress={() => setItemsLayout('grid')}
+              activeOpacity={0.6}>
+              <Icon
+                name="grid"
+                type="Entypo"
+                style={{color: itemsLayout == 'grid' ? Colors.primary : '#aaa'}}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.pickerWrap}>
             <Picker
               selectedValue={selectedCategory}
@@ -152,19 +242,35 @@ export default function Inventory({ navigation }) {
             </Picker>
           </View>
         </View>
-        <ScrollView style={styles.content} contentContainerStyle={styles.pb30}>
-          <View>
-            {INVENTORY.map((item) => {
-              return <ListItem key={item.id} item={item} />;
-            })}
-          </View>
-        </ScrollView>
+        {itemsLayout == 'list' ? (
+          <ScrollView
+            style={styles.content}
+            contentContainerStyle={styles.pb30}>
+            <View>
+              {INVENTORY.map((item) => {
+                return <ListItem key={item.id} item={item} />;
+              })}
+            </View>
+          </ScrollView>
+        ) : (
+          <ScrollView style={{paddingVertical: 15}}>
+            <Row>
+              {INVENTORY.map((item) => {
+                return (
+                  <Col xs={6} sm={6} md={4} lg={3} key={item.id}>
+                    <GridItem item={item} />
+                  </Col>
+                );
+              })}
+            </Row>
+          </ScrollView>
+        )}
         <Fab
           direction="up"
           containerStyle={{}}
           style={{backgroundColor: Colors.primary}}
           position="bottomRight"
-          onPress={() => navigation.navigate("AddEdit")}>
+          onPress={() => navigation.navigate('AddEdit')}>
           <Icon name="add" />
         </Fab>
       </View>
@@ -232,7 +338,7 @@ export default function Inventory({ navigation }) {
           </Button>
         </Right>
       </Header>
-      <Tabs tabContainerStyle={{elevation: 0, }}>
+      <Tabs tabContainerStyle={{elevation: 0}}>
         <Tab
           heading={
             <TabHeading>
@@ -326,9 +432,11 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 5,
     paddingHorizontal: 30,
-    alignItems: 'flex-end',
+    // alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   pickerWrap: {
     borderWidth: 1,
@@ -338,9 +446,55 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   pickerStyles: {
-    width: Layout.window.width < 500 ? Layout.window.width * 0.5 : Layout.window.width * 0.25,
+    width:
+      Layout.window.width < 500
+        ? Layout.window.width * 0.5
+        : Layout.window.width * 0.25,
     height: 30,
     borderWidth: 1,
     borderColor: Colors.primary,
+  },
+  viewSwitcherWrap: {
+    flexDirection: 'row',
+  },
+  viewSwitcherButton: {
+    marginRight: 10,
+  },
+  viewSwitcherIcon: {
+    color: '#aaa',
+  },
+  product: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 15,
+    marginEnd: 10,
+  },
+  productImageWrap: {
+    marginBottom: 10,
+  },
+  productImage: {
+    backgroundColor: '#eee',
+    height: Layout.window.width * 0.1,
+    width: Layout.window.width * 0.1,
+    borderRadius: 10,
+  },
+  productMetaWrap: {
+    marginTop: 5,
+  },
+  productTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  productPrice: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+    color: Colors.primary,
+  },
+  gridRow: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
 });
