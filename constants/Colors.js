@@ -15,5 +15,7 @@ export default {
   secondary: "#083C9A",
 
   darkText: "#131844",
-  mutedText: "#B2BABF"
+  mutedText: "#B2BABF",
+  danger: "#EC524B",
+  success: "#03C4A1"
 };

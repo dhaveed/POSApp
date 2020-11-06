@@ -7,7 +7,7 @@
 
 import {NavigationContainer} from '@react-navigation/native';
 import {Root, StyleProvider} from 'native-base';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,9 +24,20 @@ import Login from './screens/Login';
 import Navigation from './screens/Navigation';
 
 import getTheme from './native-base-theme/components';
-import variables from './native-base-theme/variables/variables'
+import variables from './native-base-theme/variables/variables';
+
+import Orientation from 'react-native-orientation-locker';
+import Layout from './constants/Layout';
 
 const App = () => {
+
+  useEffect(() => {
+    if(Layout.window.width >= 712){
+      Orientation.lockToLandscape();
+    }
+  }, [])
+
+
   return (
     // <Root>
     //     {/* <Login /> */}

@@ -43,12 +43,13 @@ export default function SideBar({navigation}) {
           icon={{name: 'receipt', type: 'FontAwesome5'}}
           routeName={'SalesReceipt'}
         />
-        <SidebarItem label="Users" icon={{name: 'groups'}} />
+        <SidebarItem label="Users" icon={{name: 'groups'}} routeName="Users" />
         <SidebarItem
           label="User Activity"
           icon={{name: 'linechart', type: 'AntDesign'}}
+          routeName="UserActivity"
         />
-        <SidebarItem label="Dashboard" icon={{name: 'dashboard'}} />
+        <SidebarItem label="Dashboard" icon={{name: 'dashboard'}} routeName="Dashboard"/>
       </ScrollView>
       <View>
         <SidebarItem label="Logout" icon={{name: 'logout'}} routeName="Login" />
