@@ -259,19 +259,6 @@ export default function Main({navigation}) {
           <Col lg={8} md={12} sm={12} xs={12} colStyles={[styles.productsCol]}>
             <View style={styles.productsCard}>
               <View style={styles.productSearchRow}>
-                <View style={styles.pickerWrap}>
-                  <Picker
-                    selectedValue={selectedCategory}
-                    style={styles.pickerStyles}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setSelectedCategory(itemValue)
-                    }>
-                    <Picker.Item label="All Categories" value="" />
-                    <Picker.Item label="Beverage" value="beverage" />
-                    <Picker.Item label="Vegetables" value="vegetables" />
-                    <Picker.Item label="Drugs" value="drugs" />
-                  </Picker>
-                </View>
                 <View style={styles.searchWrap}>
                   <TextInput
                     placeholder="Search items here..."
@@ -297,6 +284,21 @@ export default function Main({navigation}) {
                   })}
                 </Row>
               </ScrollView>
+              <View style={styles.productCardFooter}>
+                <View style={styles.pickerWrap}>
+                  <Picker
+                    selectedValue={selectedCategory}
+                    style={styles.pickerStyles}
+                    onValueChange={(itemValue, itemIndex) =>
+                      setSelectedCategory(itemValue)
+                    }>
+                    <Picker.Item label="All Categories" value="" />
+                    <Picker.Item label="Beverage" value="beverage" />
+                    <Picker.Item label="Vegetables" value="vegetables" />
+                    <Picker.Item label="Drugs" value="drugs" />
+                  </Picker>
+                </View>
+              </View>
             </View>
           </Col>
 
@@ -395,20 +397,19 @@ const styles = StyleSheet.create({
   productSearchRow: {
     flexDirection: 'row',
     // justifyContent: 'flex-end',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   pickerWrap: {
     borderWidth: 1,
     borderRadius: 4,
-    borderColor: Colors.primary,
+    borderColor: '#00000040',
     paddingVertical: 5,
     paddingHorizontal: 10,
+    width: "40%",
+    alignSelf: "flex-end"
   },
   pickerStyles: {
-    width:
-      Layout.window.width < 712
-        ? Layout.window.width * 0.5
-        : Layout.window.width * 0.2,
+    width: "100%",
     height: 30,
     borderWidth: 1,
     borderColor: Colors.primary,
@@ -422,8 +423,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width:
       Layout.window.width < 712
-        ? Layout.window.width * 0.4
-        : Layout.window.width * 0.2,
+        ? Layout.window.width * 1
+        : Layout.window.width * 0.4,
     borderRadius: 30,
   },
   searchButton: {
@@ -439,6 +440,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: 'yellow',
     marginTop: 10,
+    marginBottom: 10,
   },
   product: {
     justifyContent: 'center',
@@ -585,6 +587,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+  productCardFooter: {
+    paddingTop: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    borderTopWidth: 0.3,
+    borderTopColor: '#00000030',
+  },
 });
 
 const modalStyles = StyleSheet.create({
@@ -594,7 +604,7 @@ const modalStyles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    width: Layout.window.width * 0.5,
+    width: Layout.window.width * 0.7,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 50,
@@ -662,4 +672,5 @@ const modalStyles = StyleSheet.create({
     flex: 1,
     marginTop: 30,
   },
+  
 });

@@ -109,18 +109,6 @@ export default function Dashboard({navigation}) {
     );
   };
 
-  const Card = (props) => {
-    return (
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <Text>{props.title}</Text>
-          <Text>This is a card</Text>
-        </View>
-        <View style={styles.cardBody}>{props.children}</View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <Header style={{backgroundColor: Colors.primary}}>
@@ -140,14 +128,14 @@ export default function Dashboard({navigation}) {
       </Header>
       <ScrollView style={styles.content}>
         <Row>
-          <Col xs={12} sm={12} md={12} lg={4}>
-            <View style={styles.colInner}>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <View style={[styles.colInner, { paddingBottom: 10 }]}>
               <Row>
                 <Col
                   xs={12}
                   sm={12}
                   md={12}
-                  lg={12}
+                  lg={6}
                   colStyles={styles.cardColStyles}>
                   <StatCard title="Total Sales" value="$1.2M" percentage={7} />
                 </Col>
@@ -155,7 +143,7 @@ export default function Dashboard({navigation}) {
                   xs={12}
                   sm={12}
                   md={12}
-                  lg={12}
+                  lg={6}
                   colStyles={styles.cardColStyles}>
                   <StatCard
                     title="Products Sold"
@@ -167,7 +155,7 @@ export default function Dashboard({navigation}) {
                   xs={12}
                   sm={12}
                   md={12}
-                  lg={12}
+                  lg={6}
                   colStyles={styles.cardColStyles}>
                   <StatCard title="Customers" value="12,003" percentage={-25} />
                 </Col>
@@ -175,15 +163,15 @@ export default function Dashboard({navigation}) {
                   xs={12}
                   sm={12}
                   md={12}
-                  lg={12}
+                  lg={6}
                   colStyles={styles.cardColStyles}>
                   <StatCard title="Inventory" value="4234" percentage={19} />
                 </Col>
               </Row>
             </View>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={8}>
-            <View style={styles.colInner}>
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <View style={[styles.colInner, { paddingTop: 0 }]}>
               <Row>
                 <Col
                   xs={12}
@@ -212,7 +200,7 @@ export default function Dashboard({navigation}) {
                       <BarChart
                         // style={graphStyle}
                         data={barData}
-                        width={Layout.window.width / 1.75}
+                        width={Layout.window.width / 1.1}
                         height={220}
                         yAxisLabel={''}
                         yAxisSuffix="K"
@@ -236,7 +224,6 @@ export default function Dashboard({navigation}) {
                       <Text style={styles.cardTitle}>Sales</Text>
                     </View>
                     <View style={[styles.cardBody, { flexDirection: "column"}]}>
-                      <Text>Chart goes here</Text>
                       <VictoryPie
                         data={[
                           {y: 10, x: '5%'},
