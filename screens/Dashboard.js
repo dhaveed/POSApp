@@ -245,7 +245,7 @@ export default function Dashboard({navigation}) {
                       width={
                         Layout.window.width >= 568
                           ? Layout.window.width / 2.2
-                          : Layout.window.width * 1.1
+                          : Layout.window.width * .9
                       }>
                       <VictoryBar
                         data={data}
