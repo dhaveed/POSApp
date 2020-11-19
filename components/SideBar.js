@@ -30,7 +30,8 @@ export default function SideBar({navigation}) {
       <ScrollView style={styles.sidebarItems}>
         <SidebarItem
           label="Sales"
-          icon={{name: 'shopping-pos-machine', type: 'Fontisto'}}
+          // icon={{name: 'shopping-pos-machine', type: 'Fontisto'}}
+          icon={{name: 'point-of-sale', type: 'MaterialCommunityIcons'}}
           routeName={'Main'}
         />
         <SidebarItem

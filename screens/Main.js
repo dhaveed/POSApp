@@ -15,6 +15,8 @@ import {Row, Col} from 'react-native-responsive-grid-system';
 import VirtualKeyboard from 'react-native-virtual-keyboard';
 import {Picker} from '@react-native-community/picker';
 
+import {Grid, Section, Block} from 'react-native-responsive-layout';
+
 import Colors from '../constants/Colors';
 import Layout from '../constants/Layout';
 
@@ -246,127 +248,135 @@ export default function Main({navigation}) {
       <ScrollView
         contentContainerStyle={{
           backgroundColor: '#F7F9FB',
-          paddingHorizontal: 30,
         }}>
-        <Row
-          rowStyles={{
-            flex: 1,
-            maxWidth: Layout.window.width * 1,
-            margin: 0,
-            paddingHorizontal: 0,
-            paddingVertical: 20,
-          }}>
-          <Col lg={8} md={12} sm={12} xs={12} colStyles={[styles.productsCol]}>
-            <View style={styles.productsCard}>
-              <View style={styles.productSearchRow}>
-                <View style={styles.searchWrap}>
-                  <TextInput
-                    placeholder="Search items here..."
-                    style={styles.searchInput}
+        <Grid style={{flex: 1}}>
+          <Section>
+            <Block
+              xsSize="1/1"
+              smSize="1/1"
+              mdSize="2/3"
+              lgSize="2/3"
+              xlSize="2/3"
+              xxlSize="2/3">
+              <View style={{padding: 20, height: '100%'}}>
+                <View style={styles.productsCard}>
+                  <View style={styles.productSearchRow}>
+                    <View style={styles.searchWrap}>
+                      <TextInput
+                        placeholder="Search items here..."
+                        style={styles.searchInput}
+                      />
+                      <TouchableOpacity style={styles.searchButton}>
+                        <Icon
+                          name="search"
+                          type="Ionicons"
+                          style={{color: '#FFF', fontSize: 22}}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <ScrollView style={styles.productGridWrap}>
+                    <Row>
+                      {ALL_PRODUCTS.map((item) => {
+                        return (
+                          <Col xs={6} sm={6} md={4} lg={3}>
+                            <Product item={item} />
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  </ScrollView>
+                  <View style={styles.productCardFooter}>
+                    <View style={styles.pickerWrap}>
+                      <Picker
+                        selectedValue={selectedCategory}
+                        style={styles.pickerStyles}
+                        onValueChange={(itemValue, itemIndex) =>
+                          setSelectedCategory(itemValue)
+                        }>
+                        <Picker.Item label="All Categories" value="" />
+                        <Picker.Item label="Beverage" value="beverage" />
+                        <Picker.Item label="Vegetables" value="vegetables" />
+                        <Picker.Item label="Drugs" value="drugs" />
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Block>
+            <Block
+              xsSize="1/1"
+              smSize="1/1"
+              mdSize="1/3"
+              lgSize="1/3"
+              xlSize="1/3"
+              xxlSize="1/3">
+              <View style={{height: '100%', paddingHorizontal: 10}}>
+                {/* <View style={{}}> */}
+                <View style={styles.checkoutWrap}>
+                  <View style={styles.checkoutTitle}>
+                    <Text style={styles.checkoutTitleText}>Checkout</Text>
+                  </View>
+                  {/* Checkout Items Heading */}
+                  <View style={styles.checkoutTableHeading}>
+                    {/* <View style={{flex: 0.15}}></View> */}
+                    <View style={styles.tableContent}>
+                      <Text style={styles.checkoutTableHeadingItem}>Name</Text>
+                      <Text style={styles.checkoutTableHeadingItem}>QTY</Text>
+                      <Text style={styles.checkoutTableHeadingItem}>Price</Text>
+                    </View>
+                  </View>
+
+                  {/* Checkout Items List */}
+                  {/* <View > */}
+                  <FlatList
+                    data={TICKET_ITEMS}
+                    renderItem={CheckoutItem}
+                    keyExtractor={(item) => item.id.toString()}
+                    style={[styles.checkoutItems, {flex: 1}]}
                   />
-                  <TouchableOpacity style={styles.searchButton}>
-                    <Icon
-                      name="search"
-                      type="Ionicons"
-                      style={{color: '#FFF', fontSize: 22}}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <ScrollView style={styles.productGridWrap}>
-                <Row>
-                  {ALL_PRODUCTS.map((item) => {
-                    return (
-                      <Col xs={6} sm={6} md={4} lg={3}>
-                        <Product item={item} />
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </ScrollView>
-              <View style={styles.productCardFooter}>
-                <View style={styles.pickerWrap}>
-                  <Picker
-                    selectedValue={selectedCategory}
-                    style={styles.pickerStyles}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setSelectedCategory(itemValue)
-                    }>
-                    <Picker.Item label="All Categories" value="" />
-                    <Picker.Item label="Beverage" value="beverage" />
-                    <Picker.Item label="Vegetables" value="vegetables" />
-                    <Picker.Item label="Drugs" value="drugs" />
-                  </Picker>
-                </View>
-              </View>
-            </View>
-          </Col>
+                  {/* </View> */}
 
-          <Col lg={4} md={12} sm={12} xs={12} colStyles={styles.ticketCol}>
-            {/* Checkout Card */}
-            <View style={{flex: 1}}>
-              <View style={styles.checkoutWrap}>
-                <View style={styles.checkoutTitle}>
-                  <Text style={styles.checkoutTitleText}>Checkout</Text>
-                </View>
-                {/* Checkout Items Heading */}
-                <View style={styles.checkoutTableHeading}>
-                  {/* <View style={{flex: 0.15}}></View> */}
-                  <View style={styles.tableContent}>
-                    <Text style={styles.checkoutTableHeadingItem}>Name</Text>
-                    <Text style={styles.checkoutTableHeadingItem}>QTY</Text>
-                    <Text style={styles.checkoutTableHeadingItem}>Price</Text>
+                  <View>
+                    {/* Cost Section */}
+                    <View style={styles.costWrap}>
+                      <View style={styles.costItem}>
+                        <Text style={styles.costItemText}>Discount (%)</Text>
+                        <Text style={styles.costItemText}>0</Text>
+                      </View>
+                      <View style={styles.costItem}>
+                        <Text style={styles.costItemText}>Sub Total</Text>
+                        <Text style={styles.costItemText}>&#8358; 2,100</Text>
+                      </View>
+                      <View style={styles.costItem}>
+                        <Text style={styles.costItemText}>Tax (1.5%)</Text>
+                        <Text style={styles.costItemText}>&#8358; 31.5</Text>
+                      </View>
+                    </View>
+
+                    {/* Total Section */}
+                    <View style={styles.totalWrap}>
+                      <Text style={styles.totalLabel}>Total</Text>
+                      <Text style={styles.total}>&#8358; 2,131.5</Text>
+                    </View>
+
+                    <View style={styles.buttonWrap}>
+                      <TouchableOpacity
+                        style={styles.checkoutButton}
+                        activeOpacity={0.6}
+                        onPress={() => setModalOpen(true)}>
+                        <Text style={styles.checkoutButtonLabel}>
+                          Pay (&#8358; 2,131.5)
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
-
-                {/* Checkout Items List */}
-                {/* <View > */}
-                <FlatList
-                  data={TICKET_ITEMS}
-                  renderItem={CheckoutItem}
-                  keyExtractor={(item) => item.id.toString()}
-                  style={styles.checkoutItems}
-                />
                 {/* </View> */}
-
-                <View>
-                  {/* Cost Section */}
-                  <View style={styles.costWrap}>
-                    <View style={styles.costItem}>
-                      <Text style={styles.costItemText}>Discount (%)</Text>
-                      <Text style={styles.costItemText}>0</Text>
-                    </View>
-                    <View style={styles.costItem}>
-                      <Text style={styles.costItemText}>Sub Total</Text>
-                      <Text style={styles.costItemText}>&#8358; 2,100</Text>
-                    </View>
-                    <View style={styles.costItem}>
-                      <Text style={styles.costItemText}>Tax (1.5%)</Text>
-                      <Text style={styles.costItemText}>&#8358; 31.5</Text>
-                    </View>
-                  </View>
-
-                  {/* Total Section */}
-                  <View style={styles.totalWrap}>
-                    <Text style={styles.totalLabel}>Total</Text>
-                    <Text style={styles.total}>&#8358; 2,131.5</Text>
-                  </View>
-
-                  <View style={styles.buttonWrap}>
-                    <TouchableOpacity
-                      style={styles.checkoutButton}
-                      activeOpacity={0.6}
-                      onPress={() => setModalOpen(true)}>
-                      <Text style={styles.checkoutButtonLabel}>
-                        Pay (&#8358; 2,131.5)
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
               </View>
-            </View>
-          </Col>
-        </Row>
+            </Block>
+          </Section>
+        </Grid>
       </ScrollView>
       <CheckoutModal />
     </View>
@@ -385,14 +395,15 @@ const styles = StyleSheet.create({
   },
   productsCard: {
     backgroundColor: '#fff',
-    flex: 1,
+    // flex: 1,
     width: '100%',
     paddingHorizontal: 30,
     paddingVertical: 20,
-    borderRadius: 8,
-    marginBottom: 30,
-    maxHeight: '90%',
-    // elevation: 1,
+    // borderRadius: 8,
+    // marginBottom: 30,
+    // maxHeight: '90%',
+    height: Layout.window.height * 0.8,
+    elevation: 1,
   },
   productSearchRow: {
     flexDirection: 'row',
@@ -405,11 +416,11 @@ const styles = StyleSheet.create({
     borderColor: '#00000040',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    width: "40%",
-    alignSelf: "flex-end"
+    width: '40%',
+    alignSelf: 'flex-end',
   },
   pickerStyles: {
-    width: "100%",
+    width: '100%',
     height: 30,
     borderWidth: 1,
     borderColor: Colors.primary,
@@ -422,9 +433,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ebebeb',
     paddingHorizontal: 20,
     width:
-      Layout.window.width < 712
-        ? Layout.window.width * 1
-        : Layout.window.width * 0.4,
+      Layout.window.width >= 568
+        ? 300
+        : 250,
     borderRadius: 30,
   },
   searchButton: {
@@ -672,5 +683,4 @@ const modalStyles = StyleSheet.create({
     flex: 1,
     marginTop: 30,
   },
-  
 });

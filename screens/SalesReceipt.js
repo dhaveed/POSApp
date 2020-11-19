@@ -11,6 +11,8 @@ import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 import Colors from '../constants/Colors';
 import {Col, Row} from 'react-native-responsive-grid-system';
 
+import {Grid, Section, Block} from 'react-native-responsive-layout';
+
 const SALES = [
   {
     id: 1,
@@ -62,7 +64,7 @@ const SALES = [
   },
 ];
 
-export default function SalesReceipt({ navigation }) {
+export default function SalesReceipt({navigation}) {
   const SaleRow = ({sale, active}) => {
     return (
       <TouchableOpacity
@@ -107,7 +109,117 @@ export default function SalesReceipt({ navigation }) {
         </Right>
       </Header>
       <ScrollView style={styles.content}>
-        <Row>
+        <Grid>
+          <Section>
+            <Block
+              xsSize="1/1"
+              smSize="1/1"
+              mdSize="1/3"
+              lgSize="1/3"
+              xlSize="1/3"
+              xxlSize="1/3">
+              <View style={{}}>
+                <View style={{backgroundColor: '#fff', elevation: 3}}>
+                  <View style={styles.ticketSection}>
+                    <Text style={styles.receiptNumber}>#1 - 1009</Text>
+                  </View>
+                  <View style={styles.ticketSection}>
+                    <Text style={styles.ticketText}>
+                      Cashier: Nanle Precious
+                    </Text>
+                    <Text style={styles.ticketText}>POS 1</Text>
+                  </View>
+                  <View style={styles.ticketSection}>
+                    <View style={styles.ticketItem}>
+                      <Text style={styles.ticketText}>
+                        Ginger (50mg){' '}
+                        <Text style={styles.ticketItemQuantity}>X1</Text>
+                      </Text>
+                      <Text style={styles.ticketText}>N2000</Text>
+                    </View>
+                    <View style={styles.ticketItem}>
+                      <Text style={styles.ticketText}>
+                        Ginger (50mg){' '}
+                        <Text style={styles.ticketItemQuantity}>X1</Text>
+                      </Text>
+                      <Text style={styles.ticketText}>N2000</Text>
+                    </View>
+                    <View style={styles.ticketItem}>
+                      <Text style={styles.ticketText}>
+                        Ginger (50mg){' '}
+                        <Text style={styles.ticketItemQuantity}>X1</Text>
+                      </Text>
+                      <Text style={styles.ticketText}>N2000</Text>
+                    </View>
+                  </View>
+                  <View style={styles.ticketSection}>
+                    <View style={styles.ticketCostItem}>
+                      <Text style={styles.ticketCostText}>Discount (%)</Text>
+                      <Text style={styles.ticketCostText}>0</Text>
+                    </View>
+                    <View style={styles.ticketCostItem}>
+                      <Text style={styles.ticketCostText}>Tax</Text>
+                      <Text style={styles.ticketCostText}>5%</Text>
+                    </View>
+                    <View style={styles.ticketCostItem}>
+                      <Text style={styles.ticketCostText}>Total</Text>
+                      <Text style={styles.ticketCostText}>N6000</Text>
+                    </View>
+                  </View>
+                  <View style={[styles.ticketSection, {borderBottomWidth: 0}]}>
+                    <View style={[styles.ticketItem, {marginVertical: 0}]}>
+                      <Text style={styles.ticketText}>1/02/2020 10:30AM</Text>
+                      <Text style={styles.ticketText}>#1-1009</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Block>
+            <Block
+              xsSize="1/1"
+              smSize="1/1"
+              mdSize="2/3"
+              lgSize="2/3"
+              xlSize="2/3"
+              xxlSize="2/3">
+              <View style={{ padding: 20 }}>
+                <View style={styles.datesWrap}>
+                  <Text style={styles.daterangeItem}>
+                    From: <Text style={styles.dateText}>01/02/2020</Text>
+                  </Text>
+                  <Text style={styles.daterangeItem}>
+                    To: <Text style={styles.dateText}>01/02/2020</Text>
+                  </Text>
+                </View>
+
+                {/* This section should be converted to its own component when integrating with actual data */}
+                <ScrollView>
+                  {SALES.map((item, index) => {
+                    return (
+                      <View style={styles.salesDay} key={index}>
+                        <View style={styles.salesHeader}>
+                          <Text style={[styles.dateText, styles.date]}>
+                            Tuesday, 1 February 2020
+                          </Text>
+                        </View>
+                        {item.sales.map((sale) => {
+                          return (
+                            <SaleRow
+                              sale={sale}
+                              active={sale.id == 1 && true}
+                              key={sale.id}
+                            />
+                          );
+                        })}
+                      </View>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </Block>
+          </Section>
+        </Grid>
+        {/* <Row>
           <Col
             xs={12}
             sm={12}
@@ -166,7 +278,7 @@ export default function SalesReceipt({ navigation }) {
             </View>
           </Col>
 
-          {/* All sales section */}
+          {/* All sales section /}
           <Col xs={12} sm={12} md={12} lg={8} colStyles={{padding: 20}}>
             <View style={styles.datesWrap}>
               <Text style={styles.daterangeItem}>
@@ -177,7 +289,7 @@ export default function SalesReceipt({ navigation }) {
               </Text>
             </View>
 
-            {/* This section should be converted to its own component when integrating with actual data */}
+            {/* This section should be converted to its own component when integrating with actual data /}
             <ScrollView>
               {SALES.map((item, index) => {
                 return (
@@ -189,7 +301,11 @@ export default function SalesReceipt({ navigation }) {
                     </View>
                     {item.sales.map((sale) => {
                       return (
-                        <SaleRow sale={sale} active={sale.id == 1 && true} key={sale.id} />
+                        <SaleRow
+                          sale={sale}
+                          active={sale.id == 1 && true}
+                          key={sale.id}
+                        />
                       );
                     })}
                   </View>
@@ -197,7 +313,7 @@ export default function SalesReceipt({ navigation }) {
               })}
             </ScrollView>
           </Col>
-        </Row>
+        </Row> */}
       </ScrollView>
     </View>
   );
