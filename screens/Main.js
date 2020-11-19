@@ -276,7 +276,7 @@ export default function Main({navigation}) {
                     </View>
                   </View>
                   <ScrollView style={styles.productGridWrap}>
-                    <Row>
+                    {/* <Row>
                       {ALL_PRODUCTS.map((item) => {
                         return (
                           <Col xs={6} sm={6} md={4} lg={3}>
@@ -284,7 +284,24 @@ export default function Main({navigation}) {
                           </Col>
                         );
                       })}
-                    </Row>
+                    </Row> */}
+                    <Grid>
+                      <Section>
+                        {ALL_PRODUCTS.map((item) => {
+                          return (
+                            <Block
+                              xsSize="1/2"
+                              smSize="1/2"
+                              mdSize="1/3"
+                              lgSize="1/3"
+                              xlSize="1/4"
+                              xxlSize="1/4">
+                              <Product item={item} />
+                            </Block>
+                          );
+                        })}
+                      </Section>
+                    </Grid>
                   </ScrollView>
                   <View style={styles.productCardFooter}>
                     <View style={styles.pickerWrap}>
@@ -432,10 +449,7 @@ const styles = StyleSheet.create({
   searchInput: {
     backgroundColor: '#ebebeb',
     paddingHorizontal: 20,
-    width:
-      Layout.window.width >= 568
-        ? 300
-        : 250,
+    width: Layout.window.width >= 568 ? 300 : 250,
     borderRadius: 30,
   },
   searchButton: {
