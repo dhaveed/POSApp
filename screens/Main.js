@@ -249,7 +249,7 @@ export default function Main({navigation}) {
         contentContainerStyle={{
           backgroundColor: '#F7F9FB',
         }}>
-        <Grid style={{flex: 1}}>
+        <Grid>
           <Section>
             <Block
               xsSize="1/1"
@@ -258,7 +258,7 @@ export default function Main({navigation}) {
               lgSize="2/3"
               xlSize="2/3"
               xxlSize="2/3">
-              <View style={{padding: 20, height: '100%'}}>
+              <View style={{padding: 20, }}>
                 <View style={styles.productsCard}>
                   <View style={styles.productSearchRow}>
                     <View style={styles.searchWrap}>
@@ -328,7 +328,7 @@ export default function Main({navigation}) {
               lgSize="1/3"
               xlSize="1/3"
               xxlSize="1/3">
-              <View style={{height: '100%', paddingHorizontal: 10}}>
+              <View style={{height: '100%', paddingHorizontal: 20 }}>
                 {/* <View style={{}}> */}
                 <View style={styles.checkoutWrap}>
                   <View style={styles.checkoutTitle}>
@@ -433,7 +433,9 @@ const styles = StyleSheet.create({
     borderColor: '#00000040',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    width: '40%',
+    // width: '40%',
+    width: Layout.window.width >= 568 ? 300 : "100%",
+
     alignSelf: 'flex-end',
   },
   pickerStyles: {
@@ -504,8 +506,9 @@ const styles = StyleSheet.create({
   },
   checkoutWrap: {
     backgroundColor: '#fff',
-    flex: 1,
-    // elevation: 5,
+    // flex: 1,
+    paddingBottom: 10,
+    elevation: 1,
   },
   checkoutTitle: {
     alignItems: 'center',

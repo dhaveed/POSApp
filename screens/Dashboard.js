@@ -22,16 +22,16 @@ export default function Dashboard({navigation}) {
 
   const data = [
     {month: 'Jan', earnings: '5K'},
-    {month: 'Feb', earnings: '16.5K'},
-    {month: 'Mar', earnings: '14.25K'},
+    {month: 'Feb', earnings: '16K'},
+    {month: 'Mar', earnings: '14K'},
     {month: 'Apr', earnings: '19K'},
     {month: 'May', earnings: '13K'},
-    {month: 'Jun', earnings: '16.5K'},
-    {month: 'Jul', earnings: '14.25K'},
+    {month: 'Jun', earnings: '16K'},
+    {month: 'Jul', earnings: '14K'},
     {month: 'Aug', earnings: '19K'},
     {month: 'Sep', earnings: '13K'},
-    {month: 'Oct', earnings: '16.5K'},
-    {month: 'Nov', earnings: '14.25'},
+    {month: 'Oct', earnings: '16K'},
+    {month: 'Nov', earnings: '14K'},
     {month: 'Dec', earnings: '19K'},
   ];
 
@@ -236,6 +236,9 @@ export default function Dashboard({navigation}) {
                   <View
                     style={[
                       styles.cardBody,
+                      {
+                        paddingHorizontal: 0,
+                      }
                       // {borderWidth: 1, borderColor: 'red'},
                     ]}>
                     <VictoryChart
@@ -347,7 +350,8 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 20,
     width: '100%',
     // elevation: 1,
-    borderRadius: 8,
+    // borderRadius: 8,
+    elevation: 1,
   },
   cardHeader: {
     paddingBottom: 15,
